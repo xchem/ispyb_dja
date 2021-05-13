@@ -44,8 +44,7 @@ You may have to ask for your applications URL to be added to a list of allowed u
 ### Set environment variables/secrets 
 Set the following environment variables as secrets (they are secrets, so make sure they stay that way!)
 
-```bash
-
+```
 ISPYB_USER=<Your ISPyB username>
 ISPYB_PASSWORD=<Your ISPyB password>
 ISPYB_HOST=<ispyb host address>
@@ -55,7 +54,7 @@ SECURITY_CONNECTOR=<ssh_ispyb for remote or ispyb for local>
 
 If your app is running outside of Diamond, you will also need:
 
-```bash
+```
 SSH_HOST=ssh.diamond.ac.uk
 SSH_USER=<username for ssh into diamond>
 SSH_PASSWORD=<password for ssh into diamond>
