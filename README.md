@@ -92,7 +92,7 @@ new_data = SensitiveData(related_project=new_project, sensitive_data='something 
 ```
 
 ## Use the IspybSafeQuerySet to secure serializers/views and provide authorization
-To use the ISPyB-DJA authorization feature, instead of using a django or DRF serializer class, you use the custom 
+To use the ISPyB-DJA authorization feature, instead of using a django or DRF view class, you use the custom 
 `IspybSafeQuerySet` in your `views.py` file:
 
 ```python
