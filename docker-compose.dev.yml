@@ -1,0 +1,31 @@
+services:
+  ispyb-dja-db:
+    image: postgres:12.2
+    container_name: ispyb-dja-db
+    env_file:
+      - ./.env.dev
+    restart: always
+    volumes:
+      - ./scratch_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  web:
+    depends_on:
+      - ispyb-dja-db
+    container_name: ispyb-dja-web
+    build: .
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env.dev
+    ports:
+      - "9000:9000"
+    command: >
+      /bin/bash -c "python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py makemigrations django_auth &&
+      python manage.py migrate django_auth &&
+      python manage.py createsuperuser --noinput &&
+      python3.6 manage.py runserver 0.0.0.0:9000"
+    restart: always
+

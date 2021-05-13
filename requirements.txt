@@ -1,0 +1,9 @@
+Django==3.1
+ispyb
+djangorestframework
+psycopg2-binary
+django-dbconn-retry
+sshtunnel
+PyMySQL
+django_cas_ng
+django-guardian
