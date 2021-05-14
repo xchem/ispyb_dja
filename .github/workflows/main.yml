@@ -1,0 +1,87 @@
+name: CI - Setup environment, build & test
+
+env:
+  POSTGRES_PASSWORD: ispyb-dja
+  POSTGRES_USER: ispyb-dja
+  POSTGRES_DB: ispyb-dja
+  PGDATA: /var/lib/postgresql/data/pgdata
+  POSTGRESQL_DATABASE: ispyb-dja
+  POSTGRESQL_USER: ispyb-dja
+  POSTGRESQL_PASSWORD: ispyb-dja
+  POSTGRESQL_HOST: ispyb-dja-db
+  POSTGRESQL_PORT: 5432
+  TEST_PROJECT: TEST
+  TEST_PROPOSAL_VISIT: ${{ secrets.TEST_PROPOSAL_VISIT }}
+  TEST_USER: ${{ secrets.TEST_USER }}
+  SSH_HOST: ${{ secrets.SSH_HOST }}
+  SSH_USER: ${{ secrets.SSH_USER }}
+  SSH_PASSWORD: ${{ secrets.SSH_PASSWORD}}
+  ISPYB_USER: ${{ secrets.ISPYB_USER }}
+  ISPYB_PASSWORD: ${{ secrets.ISPYB_PASSWORD }}
+  ISPYB_HOST: ${{ secrets.ISPYB_HOST }}
+  ISPYB_PORT: ${{ secrets.ISPYB_PORT }}
+  SECURITY_CONNECTOR: ssh_ispyb
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+            ispyb-dja-db:
+                image: postgres:12.2
+                env:
+                  POSTGRES_PASSWORD: ispyb-dja
+                  POSTGRES_USER: ispyb-dja
+                  POSTGRES_DB: ispyb-dja
+                  PGDATA: /var/lib/postgresql/data/pgdata
+                ports:
+                  - 5432:5432
+                options: >-
+                  --health-cmd pg_isready
+                  --health-interval 10s
+                  --health-timeout 5s
+                  --health-retries 5
+    strategy:
+      matrix:
+        python-version: [3.6]
+    steps:
+      - name : Step 1 - Checkout code
+        uses: actions/checkout@v2
+      - name: Step 2 - Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Step 3 - Setup environment
+        run: |
+          sudo apt-get update 
+          sudo apt-get install -y python-psycopg2 build-essential postgresql-client
+          python -m pip install --upgrade pip
+          pip install --trusted-host pypi.python.org -r requirements.txt
+      - name: Step 4 - Install dependencies (setup.py)        
+        run: pip install -e .
+      - name: Step 5 - Apply existing migrations
+        run: python manage.py migrate
+      - name: Step 6 - Create new migrations
+        run: python manage.py makemigrations django_auth
+      - name: Step 7 - Apply new migrations
+        run: python manage.py migrate django_auth
+      - name: Step 8 - Run tests
+        run: python manage.py test
+        
+#         env:
+#           POSTGRESQL_DATABASE: ispyb-dja
+#           POSTGRESQL_USER: ispyb-dja
+#           POSTGRESQL_PASSWORD: ispyb-dja
+#           POSTGRESQL_HOST: ispyb-dja-db
+#           POSTGRESQL_PORT: 5432
