@@ -65,7 +65,7 @@ jobs:
       - name: Step 3 - Setup environment
         run: |
           sudo apt-get update 
-          sudo apt-get install -y python-psycopg2 build-essential postgresql-client
+          sudo apt-get install -y python3-psycopg2 build-essential postgresql-client
           python -m pip install --upgrade pip
           pip install --trusted-host pypi.python.org -r requirements.txt
       - name: Step 4 - Install dependencies (setup.py)        
