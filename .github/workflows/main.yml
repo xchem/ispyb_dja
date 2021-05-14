@@ -1,15 +1,15 @@
 name: CI - Setup environment, build & test
 
 env:
-  POSTGRES_PASSWORD: ispyb-dja
-  POSTGRES_USER: ispyb-dja
-  POSTGRES_DB: ispyb-dja
-  PGDATA: /var/lib/postgresql/data/pgdata
-  POSTGRESQL_DATABASE: ispyb-dja
-  POSTGRESQL_USER: ispyb-dja
-  POSTGRESQL_PASSWORD: ispyb-dja
-  POSTGRESQL_HOST: ispyb-dja-db
-  POSTGRESQL_PORT: 5432
+#   POSTGRES_PASSWORD: ispyb-dja
+#   POSTGRES_USER: ispyb-dja
+#   POSTGRES_DB: ispyb-dja
+#   PGDATA: /var/lib/postgresql/data/pgdata
+#   POSTGRESQL_DATABASE: ispyb-dja
+#   POSTGRESQL_USER: ispyb-dja
+#   POSTGRESQL_PASSWORD: ispyb-dja
+#   POSTGRESQL_HOST: ispyb-dja-db
+#   POSTGRESQL_PORT: 5432
   TEST_PROJECT: TEST
   TEST_PROPOSAL_VISIT: ${{ secrets.TEST_PROPOSAL_VISIT }}
   TEST_USER: ${{ secrets.TEST_USER }}
@@ -41,10 +41,9 @@ jobs:
             ispyb-dja-db:
                 image: postgres:12.2
                 env:
-                  POSTGRES_PASSWORD: ispyb-dja
-                  POSTGRES_USER: ispyb-dja
-                  POSTGRES_DB: ispyb-dja
-                  PGDATA: /var/lib/postgresql/data/pgdata
+                  POSTGRES_USER: postgres
+                  POSTGRES_PASSWORD: postgres
+                  POSTGRES_DB: github_actions
                 ports:
                   - 5432:5432
                 options: >-
