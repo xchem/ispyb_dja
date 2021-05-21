@@ -106,3 +106,15 @@ class TestAccessView(ISpyBSafeQuerySet):
     filter_fields = ("sensitive_data",)
 ```
 where `filter_permissions` tells us which foreign key field in your model links to the `IspybAuthorization` model
+
+### Add login and logout urls to urls.py
+
+```python
+url(r"^accounts/login/", django_cas_ng.views.LoginView.as_view(), name="cas_ng_login"),
+    url(r"^accounts/logout/", django_cas_ng.views.LogoutView.as_view(), name="cas_ng_logout"),
+    url(
+        r"^accounts/callback$",
+        django_cas_ng.views.CallbackView.as_view(),
+        name="cas_ng_proxy_callback",
+    ),
+```
