@@ -33,7 +33,7 @@ if os.environ.get('GITHUB_WORKFLOW'):
 
 # Application definition
 INSTALLED_APPS = [
-    "django_auth",
+    "ispyb_dja",
     "django_dbconn_retry",
     "django.contrib.auth",
     "django.contrib.admin",
