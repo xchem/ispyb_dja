@@ -60,7 +60,7 @@ SSH_USER=<username for ssh into diamond>
 SSH_PASSWORD=<password for ssh into diamond>
 ```
 
-## Use the ISPyB-DJA authorization model to define projects linked to proposals/visits
+### Use the ISPyB-DJA authorization model to define projects linked to proposals/visits
 Use the `django_auth.models.IspybAuthorization` model to connect any sensitive data via. foreign key. 
 
 For example:
@@ -90,7 +90,7 @@ new_project = IspybAuthorization(project='A sensitive bit of data', proposal_vis
 new_data = SensitiveData(related_project=new_project, sensitive_data='something secret')
 ```
 
-## Use the IspybSafeQuerySet to secure serializers/views and provide authorization
+### Use the IspybSafeQuerySet to secure serializers/views and provide authorization
 To use the ISPyB-DJA authorization feature, instead of using a django or DRF view class, you use the custom 
 `IspybSafeQuerySet` in your `views.py` file:
 
@@ -106,3 +106,15 @@ class TestAccessView(ISpyBSafeQuerySet):
     filter_fields = ("sensitive_data",)
 ```
 where `filter_permissions` tells us which foreign key field in your model links to the `IspybAuthorization` model
+
+### Add login and logout urls to urls.py
+
+```python
+url(r"^accounts/login/", django_cas_ng.views.LoginView.as_view(), name="cas_ng_login"),
+    url(r"^accounts/logout/", django_cas_ng.views.LogoutView.as_view(), name="cas_ng_logout"),
+    url(
+        r"^accounts/callback$",
+        django_cas_ng.views.CallbackView.as_view(),
+        name="cas_ng_proxy_callback",
+    ),
+```
