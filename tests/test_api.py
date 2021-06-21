@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from rest_framework.test import APIRequestFactory, force_authenticate, APITestCase
 
-from ispyb_dja.django_auth.models import TestAccess
-from ispyb_dja.django_auth.views import TestAccessView
+from django_auth.models import TestAccess
+from django_auth.views import TestAccessView
+from ispyb_auth.ispyb_djangoauth import *
 
 
 class IspybAuthTestCase(APITestCase):

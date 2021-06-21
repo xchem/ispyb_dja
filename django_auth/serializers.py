@@ -1,6 +1,8 @@
 from rest_framework import serializers
+from django_auth.models import TestAccess
+from rest_framework import serializers
 
-from ispyb_dja.django_auth.models import TestAccess
+from django_auth.models import TestAccess
 
 
 class TestAccessSerializer(serializers.ModelSerializer):

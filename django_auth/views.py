@@ -1,6 +1,6 @@
-from ispyb_dja.django_auth.models import TestAccess
-from ispyb_dja.django_auth.serializers import TestAccessSerializer
-from ispyb_dja.ispyb_auth.ispyb_djangoauth import ISpyBSafeQuerySet
+from django_auth.models import TestAccess
+from django_auth.serializers import TestAccessSerializer
+from ispyb_auth.ispyb_djangoauth import ISpyBSafeQuerySet
 
 
 class TestAccessView(ISpyBSafeQuerySet):
