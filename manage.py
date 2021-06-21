@@ -6,8 +6,8 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_auth.settings')
-    os.environ.setdefault('SETTINGS_MODULE', 'django_auth.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ispyb_dja.django_auth.settings')
+    os.environ.setdefault('SETTINGS_MODULE', 'ispyb_dja.django_auth.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
