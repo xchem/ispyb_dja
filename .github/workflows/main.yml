@@ -70,13 +70,13 @@ jobs:
       - name: Step 4 - Install dependencies (setup.py)        
         run: pip install -e .
       - name: Step 5 - Apply existing migrations
-        run: python manage.py migrate
+        run: python ispyb_dja/manage.py migrate
       - name: Step 6 - Create new migrations
-        run: python manage.py makemigrations django_auth
+        run: python ispyb_dja/manage.py makemigrations django_auth
       - name: Step 7 - Apply new migrations
-        run: python manage.py migrate django_auth
+        run: python ispyb_dja/manage.py migrate django_auth
       - name: Step 8 - Run tests
-        run: python manage.py test
+        run: python ispyb_dja/manage.py test
         
 #         env:
 #           POSTGRESQL_DATABASE: ispyb-dja
