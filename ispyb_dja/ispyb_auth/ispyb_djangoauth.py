@@ -1,20 +1,20 @@
 import os
 import time
 from wsgiref.util import FileWrapper
+
 from django.http import Http404
 from django.http import HttpResponse
+from ispyb import NoResult
 from ispyb.connector.mysqlsp.main import ISPyBMySQLSPConnector as Connector
-
-from ispyb import ConnectionError, ISPyBException, NoResult, ReadWriteError
-
 from rest_framework import viewsets
-from .ispyb_remote_connector import IspybSSHConnector
 
-from django_auth.models import IspybAuthorization
+from ispyb_dja.django_auth.models import IspybAuthorization
+from .ispyb_remote_connector import IspybSSHConnector
 
 USER_LIST_DICT = {}
 
 connector = os.environ.get('SECURITY_CONNECTOR', 'ispyb')
+
 
 # example test:
 # from rest_framework.test import APIRequestFactory

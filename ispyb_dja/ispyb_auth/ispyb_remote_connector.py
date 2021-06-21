@@ -1,11 +1,12 @@
 import threading
-from ispyb.connector.mysqlsp.main import ISPyBMySQLSPConnector as Connector
+import time
+
+import pymysql
+import sshtunnel
 # from ispyb.exception import (ConnectionError, ISPyBNoResultException,
 #                              ISPyBRetrieveFailed, ISPyBWriteFailed)
-from ispyb import ConnectionError, ISPyBException, NoResult, ReadWriteError
-import sshtunnel
-import time
-import pymysql
+from ispyb import ConnectionError, NoResult
+from ispyb.connector.mysqlsp.main import ISPyBMySQLSPConnector as Connector
 
 
 class IspybSSHConnector(Connector):
